@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  pythonapp:
+    build: ./app
+    image: revolut-node-app:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - overlay
+    depends_on:
+      - postgres
+    env_file:
+      - .app
+  postgres:
+    build: ./postgres
+    image: custom-postgresql:latest
+    networks:
+       - overlay
+    env_file:
+      - .app
+    ports:
+      - "5432:5432"
+
+networks:
+  overlay:
+
