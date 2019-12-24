@@ -6,7 +6,7 @@ services:
 before_install:
  - VERSION="$TRAVIS_BRANCH-${TRAVIS_COMMIT:0:6}"
 script:
-  - docker build -t gdury/revolut-app:$VERSION .
+  - docker build -t gdury/revolut-app:$VERSION ./app
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push gdury/revolut-app:$VERSION; 
