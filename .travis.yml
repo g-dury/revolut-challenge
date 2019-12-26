@@ -3,6 +3,21 @@ language: nodejs
 services:
   - docker
 
+env:
+  global:
+    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
+    - PROJECT_NAME=revolut-263015
+    - CLUSTER_NAME=revolut-test
+    - CLOUDSDK_COMPUTE_ZONE=europe-west1-b
+    - DOCKER_IMAGE_NAME=revolut-app
+    - KUBE_DEPLOYMENT_NAME=revolut-app
+    - KUBE_DEPLOYMENT_CONTAINER_NAME=revolut
+
+
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
 before_install:
  - VERSION="$TRAVIS_BRANCH-${TRAVIS_COMMIT:0:6}"
 script:
@@ -10,3 +25,18 @@ script:
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push gdury/revolut-app:$VERSION; 
+
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components beta update
+  - gcloud --quiet components update kubectl
+
+deploy:
+  - provider: script
+    script: ./cd-app.sh
+    skip_cleanup: true
+    on:
+      branch: master
