@@ -40,4 +40,5 @@ deploy:
     branch: master
 after_deploy:
 - sed -i -e "s|revolut-app:.*|revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
+- sed -i -e "s|revolut-app:.*|revolut-app:$VERSION|" ./docker-compose.yaml
 - ./travis-commit-push.sh

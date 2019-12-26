@@ -1,9 +1,9 @@
 version: "3.7"
 
 services:
-  pythonapp:
+  revolutapp:
     build: ./app
-    image: revolut-node-app:latest
+    image: gdury/revolut-app:master-b7b724
     ports:
       - "3000:3000"
     networks:
@@ -14,7 +14,7 @@ services:
       - .app
   postgres:
     build: ./postgres
-    image: custom-postgresql:latest
+    image: gdury/custom-postgresql:latest
     networks:
        - overlay
     env_file:
