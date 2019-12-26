@@ -7,10 +7,6 @@ setup_git() {
   git config --global user.name "Travis CI"
 }
 
-modify_files() {
-  sed -i -e "s|revolut-app:*|revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
-}
-
 commit_files() {
   git checkout master
   dateAndMonth=`date "+%b %Y"`
@@ -30,8 +26,6 @@ upload_files() {
 }
 
 setup_git
-
-modify_files
 
 commit_files
 
