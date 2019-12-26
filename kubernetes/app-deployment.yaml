@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: revolut-app
+  name: revolut-app:master-fbc0f8
   labels:
     app: revolut
 spec:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: revolut
-        image: gdury/revolut-app:master-1cf3f9
+        image: gdury/revolut-app:master-fbc0f8master-1cf3f9
         env:
         - name: DB_HOST
           valueFrom:
