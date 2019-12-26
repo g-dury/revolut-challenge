@@ -38,3 +38,10 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+after_deploy:
+- sed -i '' "s|image: gdury/revolut-app:*|image: gdury/revolut-app:$VERSION|" kubernetes/app-deployment.yaml
+- provider: script
+  script: "./travis-commit-push.sh"
+  skip_cleanup: true
+  on:
+    branch: master

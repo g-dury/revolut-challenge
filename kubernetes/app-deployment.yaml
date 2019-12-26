@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: revolut-app
+  labels:
+    app: revolut
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: revolut
+  template:
+    metadata:
+      labels:
+        app: revolut
+    spec:
+      containers:
+      - name: revolut
+        image: gdury/revolut-app:master-1cf3f9
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: DB_PORT
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: PORT
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: DATABASE
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: DB_PASSWORD
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: revolut-svc
+spec:
+  selector:
+    app: revolut
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
