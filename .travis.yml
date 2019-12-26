@@ -24,7 +24,7 @@ after_success:
 - docker push gdury/revolut-app:$VERSION;
 before_deploy:
 - tar xvf key.tar
-- mv revolut-263015-66268096df95.json gcloud-service-key.json
+- mv revolut-263015-66268096df95.json $HOME/gcloud-service-key.json
 - export CLOUDSDK_CORE_DISABLE_PROMPTS=1;
 - rm -rf $HOME/google-cloud-sdk;
 - curl "https://sdk.cloud.google.com" | bash > /dev/null
