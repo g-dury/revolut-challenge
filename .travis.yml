@@ -38,9 +38,5 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-after_script:
-- provider: script
-  script: "./travis-commit-push.sh"
-  skip_cleanup: true
-  on:
-    branch: master
+after_deploy:
+- ./travis-commit-push.sh
