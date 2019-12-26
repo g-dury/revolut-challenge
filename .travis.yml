@@ -39,5 +39,5 @@ deploy:
   on:
     branch: master
 after_deploy:
-- sed -i -e "s|revolut-app:*|revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
+- sed -i -e "s|revolut-app:.*|revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
 - ./travis-commit-push.sh
