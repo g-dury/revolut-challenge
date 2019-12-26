@@ -8,7 +8,7 @@ setup_git() {
 }
 
 modify_files() {
-  sed -i '' "s|image: gdury/revolut-app:*|image: gdury/revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
+  sed -i -e "s|revolut-app:*|revolut-app:$VERSION|" ./kubernetes/app-deployment.yaml
 }
 
 commit_files() {
