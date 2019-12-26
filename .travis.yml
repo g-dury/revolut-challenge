@@ -23,7 +23,8 @@ after_success:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push gdury/revolut-app:$VERSION;
 before_deploy:
-- tar -zxvf key.tar
+- tar xvf key.tar
+- mv revolut-263015-66268096df95.json gcloud-service-key.json
 - export CLOUDSDK_CORE_DISABLE_PROMPTS=1;
 - rm -rf $HOME/google-cloud-sdk;
 - curl "https://sdk.cloud.google.com" | bash > /dev/null
