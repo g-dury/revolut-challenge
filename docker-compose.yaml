@@ -3,7 +3,7 @@ version: "3.7"
 services:
   revolutapp:
     build: ./app
-    image: gdury/revolut-app:master-b7b724
+    image: gdury/revolut-app:master-8344e8
     ports:
       - "3000:3000"
     networks:
