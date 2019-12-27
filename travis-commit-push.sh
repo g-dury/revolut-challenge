@@ -11,6 +11,7 @@ commit_files() {
   git checkout master
   dateAndMonth=`date "+%b %Y"`
   git add -f kubernetes/*.yaml
+  git add -f docker-compose.yaml
   # Create a new commit with a custom build message
   # with "[skip ci]" to avoid a build loop
   # and Travis build number for reference
