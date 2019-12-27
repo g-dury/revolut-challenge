@@ -178,6 +178,8 @@ and note the `EXTERNAL-IP` which is your endpoint, exposed on port 80. We can te
 
 ### To enable CI/CD
 
+You can find the builds here: [https://travis-ci.org/g-dury/revolut-challenge] (https://travis-ci.org/g-dury/revolut-challenge)
+
 Once the cloud infrastructure has been deployed, we can also enable the CI/CD pipeline by reusing the credentials from the google account. It is necessary to encode the `.json` key we obtained earlier to not give away the access to our cluster. You will need to have the tool of travis to encrypt the key:
 
 `gem install travis`
