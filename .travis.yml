@@ -34,7 +34,7 @@ before_deploy:
 - gcloud --quiet components update kubectl
 deploy:
 - provider: script
-  script: "./cd-app.sh"
+  script: "env VERSION=$VERSION ./cd-app.sh"
   skip_cleanup: true
   on:
     branch: master
