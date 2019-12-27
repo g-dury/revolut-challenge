@@ -10,6 +10,7 @@ kubectl version
 
 echo "Applying secrets"
 kubectl apply -f ./app-configmap.yaml
+kubectl apply -f ./app-secret.yaml
 
 echo "Deploying postgres"
 kubectl apply -f ./postgres-deployment.yaml

@@ -1,16 +1,16 @@
 # revolut-challenge
 
-The DevOps challenge for revolut is pretty straight forward: develop a simple API in the language of our choice respecting some stated requirements, then detail a target architecture for this API and finally implement it!
+The DevOps challenge for revolut is straight forward: develop a simple API in the language of our choice respecting some stated requirements, then detail a target architecture for this API and finally implement it!
 
-Nowadays the challenge of a devOps engineer, on top of being expert across the different domains of IT: system, networking, development, is mostly about understanding tools and choosing what is the most efficient for a given task. Hence this task is particularly interesting as it disclose what tools and why we use them.
+Nowadays the challenge of a devOps engineer, on top of being an expert across different domains of IT: system, networking, development, is mostly about understanding tools and choosing what is the most efficient for a given task. Hence this challenge is particularly relevant when it comes to the work of an SRE person.  
 
 # Tooling choice
 
-Therefore I will quickly detailed here why I choose such tools or technology, some choices might be simply motivated because there are the tools I know the best.
+I will quickly detail here why I choose such tools or technologies, some choices might be simply motivated because there are the tools I know the best.
 
 ### Development
  
-For the language I have chosen `NodeJS` as it is straight forward to develop a small API with express and the integration with `postgresql` is quickly done. As I know that the main databases at Revolut are with postgresql, it was one of my own requirements. 
+For the language I have chosen `NodeJS` as it is straight forward to develop a small API with `express.js` and the integration with `postgresql` is quickly done. As I know that the main databases at Revolut are postgresql, it was one of my own requirements. 
 
 ### Virtualization
 
@@ -18,11 +18,11 @@ I have decided to dockerize the application (along with the database), docker ha
 
 ### CI/CD
 
-Although I like `Jenkins`, it feels sometimes very heavy and overkill to use it for small projects, `Travis` on the other hand is quick to set up, is hosted so no worries about resources and since it is a public project I can use freely travis.org
+Although I like `Jenkins`, it feels sometimes very heavy to use for small projects, `Travis` on the other hand is quick to set up, is hosted so no worries about resources and since it is a public project I can use freely travis.org.
 
 ### Cloud Platform
  
- Lately `GCP` is my go too platform for kubernetes. as I have been working with docker/kubernetes for the past 3 years, the provisioning of a GKE cluster is much faster on Google (10 min) than in AWS with EKS (at least 20 minutes). However AWS has a lot of tools and resources that Google does not have yet 
+Lately `GCP` is my go too platform for kubernetes. As I have been working with docker/kubernetes for the past 3 years, the provisioning of a GKE cluster is much faster on Google (10 min) than in AWS with EKS (at least 20 minutes). However AWS has a lot of tools and resources that Google does not have yet.
 
 ### Provisioning
 
@@ -58,13 +58,15 @@ Run tests:
 
 ` npm test`
 
+You will need a `.env` file with all the environment variables for the database connections info (same as `.app` described further down)
 To run the server:
 
 `node index.js`
  
-but you will need to have a postgresql running initialized with the correct database and table format. Hence the easier is to run the docker-compose I have created. As I do not want to put environment variables inside the `docker-compose.yaml` you need to create/fill the `.app` file with your desired environment variables.
+but you will need to have a postgresql running initialized with the correct database and table format. Hence the easier is to run the docker-compose I have created. 
+As I do not want to put environment variables inside the `docker-compose.yaml` you need to create/fill the `.app` file with your desired environment variables.
 
-it should look like this:
+it should look like this (`.app`):
 
 ```
 DB_USER=postgres
@@ -73,9 +75,14 @@ DATABASE=users
 DB_PASSWORD=docker
 DB_PORT=5432
 PORT=3000
+```
+and one for postgres (`.db`)
+
+```
 POSTGRES_DB=users
 POSTGRES_PASSWORD=docker
 ```
+All of this is done at the root of the folder `./revolut-app`
 Then you do and it will start the stack:
 
 `docker-compose up -d`
@@ -92,8 +99,7 @@ When you want to shut it down:
 
 `docker-compose down`
 
-My postgresql database image is a custom one as I added the schema.sql needed to initialize the database with the proper table to contain the names and birthday dates.
-
+My postgresql database image is a custom one as I added the `schema.sql` needed to initialize the database with the proper table to contain the names and birthday dates.
 
 
 ## Target Architecture
@@ -102,7 +108,7 @@ My postgresql database image is a custom one as I added the schema.sql needed to
 
 Comments:
 
-With this architecture I am trying to achieve a simple CI/CD pipeline (thanks to travis) and to enforce Infrastructure As Code by making it to commit back to Github (ideally the infra would be on a different repository than the application)
+With this architecture I am trying to achieve a simple CI/CD pipeline (thanks to travis) and to enforce Infrastructure As Code by making it to commit back to Github (ideally the infra would be on a different repository than the application).
 The Google Kubernetes Engine (GKE) allows us to have the advantages of kubernetes while not having to manage its components and the integrated tools of stack driver allow us to have an easy logging and monitoring.
 
 ## How to deploy 
@@ -127,10 +133,10 @@ export GKEUSER=gduryrevolut@gmail.com
 ```
 Modify the `ansible/vars.yml` according to your own settings, you might need to change the email, the project id or the zone.
 
-Then you need to run:
+Then you need to run (inside `./ansible`):
 
 ```
-ansible-playbook create-gke-cluster.yml --extra-vars "cluster_name=test"
+ansible-playbook create-gke-cluster.yml --extra-vars "cluster_name=revolut-test"
 ```
 This will provision the GKE cluster, it takes around 10 minutes
 
