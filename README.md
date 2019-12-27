@@ -154,7 +154,7 @@ DATABASE: users
 PGDATA: /var/lib/postgresql/data/pgdata
 ```
 fill this file 
-for the secret.yaml you need to encode in base64 your credentials:
+for the `app-secret.yaml` you need to encode in base64 your credentials:
 
 `echo -n 'postgres' | base64`
 
@@ -178,11 +178,11 @@ and note the `EXTERNAL-IP` which is your endpoint, exposed on port 80. We can te
 
 ### To enable CI/CD
 
-Once the cloud infrastructure has been deployed, we can also enable the CI/CD pipeline by reusing the credentials from the google account. It is necessary to encode the `.json` key we obtained earlier to not give away the access to our cluster. You will need to have the tool of travis to encrypt the key
+Once the cloud infrastructure has been deployed, we can also enable the CI/CD pipeline by reusing the credentials from the google account. It is necessary to encode the `.json` key we obtained earlier to not give away the access to our cluster. You will need to have the tool of travis to encrypt the key:
 
 `gem install travis`
 
-then tar & encrypt the key you received from google
+then tar & encrypt the key you received from google:
 
 ```
 tar -cvf key.tar revolut-263015-66268096df95.json
