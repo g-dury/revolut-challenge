@@ -98,7 +98,7 @@ My postgresql database image is a custom one as I added the schema.sql needed to
 
 ## Target Architecture
 
-![revolut-diagram] (revolut-diagram.png "Target Architecture")
+![revolut-diagram](revolut-diagram.png)
 
 Comments:
 
