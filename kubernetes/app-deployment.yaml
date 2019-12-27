@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: revolut
-        image: gdury/revolut-app:master-e65d8b
+        image: gdury/revolut-app:master-63a413
         env:
         - name: DB_HOST
           valueFrom:
