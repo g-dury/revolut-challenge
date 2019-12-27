@@ -46,8 +46,6 @@ const getUserByName = (request, response) => {
 const createUser = (request, response) => {
   const name = request.params.name
   const birthdayDate = request.body.dateOfBirth
-  console.log(birthdayDate)
-  
   if (!utilities.isDateBeforeToday(new Date(birthdayDate))) {
     response.status(400).send(`Birthday Date not valid ${birthdayDate}`)
   } else if (!utilities.isOnlyLetters(name)) {
@@ -57,6 +55,7 @@ const createUser = (request, response) => {
       if (error) {
           throw error
         }
+        console.log(`User ${name} added with birthday: ${birthdayDate}`)
         response.status(204).send(`User added with birthday: ${birthdayDate}`)
       })
   }
