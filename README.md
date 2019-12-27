@@ -216,25 +216,26 @@ Example of monitoring disk metrics:
 
 ## Possible Improvements
 
-This architecture is for me more a proof-of-concept to show what I can do as a Devops/SRE engineer and the tools I am familiar with. I will detail here a few  axis of improvements to bullet proof this system and make it more production ready.
+This architecture is for me a complete proof-of-concept to show what I can do as a Devops/SRE engineer and the tools I am familiar with. I will detail here a few  axis of improvements to bullet proof this system and make it more production ready.
 
 ### Branching strategy
 
-I did not take into any branching strategy for the CI/CD nor the deployment part, considering only master branch and a unique environment. In reality (in a software development team) this can be different as we would use other branches and other environment (such as staging, uat) to ensure users can test the software before releasing to production.  
+I did not take into account any branching strategy for the CI/CD nor the deployment part, considering only master branch and a unique environment. In reality (in a software development team) this can be different as we would use other branches and other environments (such as staging, uat) to ensure users can test the software before releasing to production. Fortunately all the configurations is externalised in environment variables and travis could allow us to select different deployment strategy depending on the branch.
 
 ### Scalability
 
-This system is currently scalable to a certain point. One solution could be to add Horizontal Pod Autoscaler resources in Kubernetes to ensure that Kubernetes spawn new pods in the `revolut-app` in case of high usage in terms of resources (CPU/Memory) combined with an auto-scaling in terms of nodes in the GKE settings. This would ensure that the system will accept a high number of connections. 
+This system is currently scalable to a certain point. One solution could be to add Horizontal Pod Autoscaler resources in Kubernetes to ensure that Kubernetes spawn new pods in the `revolut-app` deployment in case of high usage in terms of resources (CPU/Memory) combined with an auto-scaling in terms of nodes in the GKE settings. This would ensure that the system will accept a high number of connections. 
 
 ### Endpoint
 
-The endpoint of the revolut app is currently totally exposed to the outside via a public IP given by GCP. As a best practice I would put the revolut app behind a reverse proxy such as Nginx to control exactly what kind of endpoints are exposed. What is more having Nginx in front would allow us to have SSL termination to enhance the security of the communication of our users with the app (and the SEO at the same time)
+The endpoint of the revolut app is currently totally exposed to the outside via a public IP given by GCP. As a best practice, I would put the revolut app behind a reverse proxy such as Nginx to control exactly what kind of endpoints are exposed. What is more having Nginx in front would allow us to have SSL termination to enhance the security of the communication of our users with the app (and the SEO at the same time).
 
 ### Security 
 
-In terms of security, we could, as I was saying earlier add SSL termination via  Let's encrypt for example. What is more, secrets in kubernetes are not very well protected (only base64 encoded) so we could use a stronger secret management platform such as `Vault` to securely encrypt environment variables and secret that requires it. 
+In terms of security, we could, as I was saying earlier add SSL termination via  Let's encrypt for example. What is more, secrets in kubernetes are not very well protected (only base64 encoded) so we could use a stronger secret management platform such as `Vault` to securely encrypt environment variables and secrets that require it. 
 
 # Conclusion
 
-I hope you will enjoy this work as much as I enjoyed working on it. I love to create infrastructures and system that are scalable and at the same time simplified enough so that developers can work on it.
+I hope you will enjoy this work as much as I enjoyed working on it. I love to create cloud infrastructures and design system that are scalable. At the same time, I strongly believe the role of a DevOps/SRE engineer is to help empower the developers to own their code all the way to production!
 
+Regards,
