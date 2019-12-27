@@ -1,0 +1,13 @@
+---
+user: "gduryrevolut@gmail.com"
+initial_node_count: 3 # Also used as minimum number of nodes for autoscaling 
+machine_type: n1-standard-1
+disk_size_gb: 50
+image_type: cos
+preemptible_node: yes
+project: revolut-263015
+auth_kind: serviceaccount
+ssh_key_fn: gke_ssh_key
+ssh_user: gkeuser
+zone: 
+  - europe-west1-b

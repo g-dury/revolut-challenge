@@ -12,6 +12,4 @@ gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 kubectl config view
 kubectl config current-context
 
-echo $VERSION
-
 kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} ${KUBE_DEPLOYMENT_CONTAINER_NAME}=gdury/${DOCKER_IMAGE_NAME}:$VERSION
